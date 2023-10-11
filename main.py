@@ -47,155 +47,41 @@ from openpyxl import Workbook
 from openpyxl.styles import Font
 from openpyxl.formatting.rule import DataBarRule
 
-
-def set_up_blasters(blasters: list) -> dict:
-    """
-    Creates blaster class dictionary:
-    {weapon:
-        {sub: name of sub}
-        {special: name of special}
-        {points: current freshness points}
-        {range: range as a number}
-        {role: role(s)}
-        {weight: light, middle, or heavy}
-        {impact: impact as a number}
-        {fire rate: fire rate as a number}
-    }
-    :param blasters: list of all weapons in the blaster class
-    :return: the blaster dictionary
-    """
-    blaster_dct = dict()
-    for blaster in blasters:
-        blaster_dct[blaster] = dict()
-
-    blaster_dct["blaster"]["sub"] = "autobomb"
-    blaster_dct["blaster"]["special"] = "big bubbler"
-    blaster_dct["blaster"]["points"] = 0
-    blaster_dct["blaster"]["range"] = 27
-    blaster_dct["blaster"]["role"] = "slayer"
-    blaster_dct["blaster"]["weight"] = "middle"
-    blaster_dct["blaster"]["impact"] = 70
-    blaster_dct["blaster"]["fire rate"] = 20
-
-    blaster_dct["clash blaster"]["sub"] = "splat bomb"
-    blaster_dct["clash blaster"]["special"] = "trizooka"
-    blaster_dct["clash blaster"]["points"] = 0
-    blaster_dct["clash blaster"]["range"] = 21
-    blaster_dct["clash blaster"]["role"] = "skirmisher, slayer"
-    blaster_dct["clash blaster"]["weight"] = "light"
-
-    blaster_dct["clash blaster neo"]["sub"] = "curling bomb"
-    blaster_dct["clash blaster neo"]["special"] = "super chump"
-    blaster_dct["clash blaster neo"]["points"] = 0
-    blaster_dct["clash blaster neo"]["range"] = 21
-    blaster_dct["clash blaster neo"]["role"] = "slayer, support"
-    blaster_dct["clash blaster neo"]["weight"] = "light"
-
-    blaster_dct["luna blaster"]["sub"] = "splat bomb"
-    blaster_dct["luna blaster"]["special"] = "zipcaster"
-    blaster_dct["luna blaster"]["points"] = 0
-    blaster_dct["luna blaster"]["range"] = 18
-    blaster_dct["luna blaster"]["role"] = "slayer, support"
-    blaster_dct["luna blaster"]["weight"] = "light"
-
-    blaster_dct["luna blaster neo"]["sub"] = "fizzy bomb"
-    blaster_dct["luna blaster neo"]["special"] = "ultra stamp"
-    blaster_dct["luna blaster neo"]["points"] = 0
-    blaster_dct["luna blaster neo"]["range"] = 18
-    blaster_dct["luna blaster neo"]["role"] = "slayer, support"
-    blaster_dct["luna blaster neo"]["weight"] = "light"
-
-    blaster_dct["range blaster"]["sub"] = "suction bomb"
-    blaster_dct["range blaster"]["special"] = "wave breaker"
-    blaster_dct["range blaster"]["points"] = 0
-    blaster_dct["range blaster"]["range"] = 56
-    blaster_dct["range blaster"]["role"] = "slayer, support"
-    blaster_dct["range blaster"]["weight"] = "middle"
-
-    blaster_dct["rapid blaster"]["sub"] = "ink mine"
-    blaster_dct["rapid blaster"]["special"] = "triple inkstrike"
-    blaster_dct["rapid blaster"]["points"] = 0
-    blaster_dct["rapid blaster"]["range"] = 62
-    blaster_dct["rapid blaster"]["role"] = "slayer"
-    blaster_dct["rapid blaster"]["weight"] = "middle"
-
-    blaster_dct["rapid blaster deco"]["sub"] = "torpedo"
-    blaster_dct["rapid blaster deco"]["special"] = "inkjet"
-    blaster_dct["rapid blaster deco"]["points"] = 0
-    blaster_dct["rapid blaster deco"]["range"] = 62
-    blaster_dct["rapid blaster deco"]["role"] = "slayer"
-    blaster_dct["rapid blaster deco"]["weight"] = "middle"
-
-    blaster_dct["rapid blaster pro"]["sub"] = "toxic mist"
-    blaster_dct["rapid blaster pro"]["special"] = "ink vac"
-    blaster_dct["rapid blaster pro"]["points"] = 0
-    blaster_dct["rapid blaster pro"]["range"] = 72
-    blaster_dct["rapid blaster pro"]["role"] = "anchor, support"
-    blaster_dct["rapid blaster pro"]["weight"] = "middle"
-
-    blaster_dct["rapid blaster pro deco"]["sub"] = "angle shooter"
-    blaster_dct["rapid blaster pro deco"]["special"] = "killer wail 5.1"
-    blaster_dct["rapid blaster pro deco"]["points"] = 0
-    blaster_dct["rapid blaster pro deco"]["range"] = 72
-    blaster_dct["rapid blaster pro deco"]["role"] = "anchor, support"
-    blaster_dct["rapid blaster pro deco"]["weight"] = "middle"
-
-    blaster_dct["s-blast '92"]["sub"] = "sprinkler"
-    blaster_dct["s-blast '92"]["special"] = "reefslider"
-    blaster_dct["s-blast '92"]["points"] = 0
-    blaster_dct["s-blast '92"]["range"] = 45
-    blaster_dct["s-blast '92"]["role"] = "slayer"
-    blaster_dct["s-blast '92"]["weight"] = "middle"
-
-    return blaster_dct
+import build_weapons
 
 
 def set_up_weapons() -> dict:
     """
     Sets up all the weapons alphabetically within their own classes
     Defaults each weapon to have zero points
+    Calls build_[class] for each class in build_weapons.py
     :return: dict of {class:
-                        {weapon_in_class: 0}
+                        {weapon_in_class:
+                            {
+                            sub: name of sub
+                            special: name of special
+                            points: current freshness points
+                            range: range as a number
+                            role: role(s)
+                            weight: light, middle, or heavy
+                            class_specific_1: value as number
+                            class_specific_2: value as number
+                            }
                         }
+                    }
     """
-    blasters = ["blaster", "clash blaster", "clash blaster neo", "luna blaster", "luna blaster neo",
-               "range blaster", "rapid blaster", "rapid blaster deco", "rapid blaster pro",
-               "rapid blaster pro deco", "s-blast '92"]
-    brella = ["sorella brella", "splat brella", "tenta brella", "tenta sorella brella", "undercover brella"]
-    brush = ["inkbrush", "inkbrush nouveau", "octobrush", "octobrush noueavu", "painbrush"]
-    charger = ["bamboozler 14 mk I", "classic squiffer", "custom goo tuber", "e-liter 4k", "e-liter 4k scope",
-               "goo tuber", "snipewriter 5h", "splat charger", "splatterscope", "z+f splat charger",
-               "z+f splatterscope"]
-    dualies = ["custom dualie squelchers", "dapple dualies", "dapple dualies nouveau", "dark tetra dualies",
-               "dualie squelchers", "glooga dualies", "light tetra dualies", "splat dualies"]
-    roller = ["big swig roller", "big swig roller express", "carbon roller", "carbon roller deco",
-              "dynamo roller", "flingza roller", "gold dynamo roller", "krak-on splat roller", "splat roller"]
-    shooter = [".52 gal", ".96 gal", ".96 gal deco", "aerospray mg", "aerospray rg", "annaki splattershot nova",
-               "custom jet squelcher", "custom splattershot jr", "forge splattershot pro", "h-3 nozzlenose",
-               "h-3 nozzlenose d", "hero shot replica", "jet squelcher", "l-3 nozzlenose", "l-3 nozzlenose d",
-               "n-zap '85", "n-zap '89", "neo splash-o-matic", "neo sploosh-o-matic", "splash-o-matic",
-               "splattershot", "splattershot jr", "splattershot nova", "splattershot pro", "sploosh-o-matic",
-               "squeezer", "tentatek splattershot"]
-    slosher = ["bloblobber", "bloblobber deco", "dread wringer", "explosher", "slosher", "slosher deco",
-               "sloshing machine", "sloshing machine neo", "tri-slosher", "tri-slosher noueavu"]
-    splatana = ["splatana stamper", "splatana wiper", "splatana wiper deco"]
-    splatling = ["ballpoint splatling", "ballpoint splatling nouveau", "heavy edit splatling", "heavy splatling",
-                 "heavy splatling deco", "hydra splatling", "mini splatling", "nautilus 47", "zink mini splatling"]
-    stringer = ["inkline tri-stringer", "reef-lux 450", "tri-stringer"]
 
-    blaster_dct = set_up_blasters(blasters)
-
-
-    brella_dct = dict.fromkeys(brella, 0)
-    brush_dct = dict.fromkeys(brush, 0)
-    charger_dct = dict.fromkeys(charger, 0)
-    dualies_dct = dict.fromkeys(dualies, 0)
-    roller_dct = dict.fromkeys(roller, 0)
-    shooter_dct = dict.fromkeys(shooter, 0)
-    slosher_dct = dict.fromkeys(slosher, 0)
-    splatana_dct = dict.fromkeys(splatana, 0)
-    splatling_dct = dict.fromkeys(splatling, 0)
-    stringer_dct = dict.fromkeys(stringer, 0)
+    blaster_dct = build_weapons.build_blasters()
+    brella_dct = build_weapons.build_brellas()
+    brush_dct = build_weapons.build_brushes()
+    charger_dct = build_weapons.build_chargers()
+    dualies_dct = build_weapons.build_dualies()
+    roller_dct = build_weapons.build_rollers()
+    shooter_dct = build_weapons.build_shooters()
+    slosher_dct = build_weapons.build_sloshers()
+    splatana_dct = build_weapons.build_splatanas()
+    splatling_dct = build_weapons.build_splatlings()
+    stringer_dct = build_weapons.build_stringers()
 
     out = {"blaster": blaster_dct, "brella": brella_dct, "brush": brush_dct, "charger": charger_dct,
            "dualies": dualies_dct, "roller": roller_dct, "shooter": shooter_dct, "slosher": slosher_dct,
@@ -220,10 +106,12 @@ def collect_points(dct: dict, default_zeros=False) -> None:
             print("{} class!".format(weapon_class))
 
         for weapon in dct[weapon_class]:
+            if weapon == "spec A" or weapon == "spec B":
+                continue
             if not default_zeros:
                 print("Current points for '{}', or 'q' to quit:".format(weapon))
                 points = input()
-                if points == "q" or points == "Q":
+                if points.upper() == "Q":
                     default_zeros = True
                     points = 0
                     print("Stopping points collection, filling in remaining weapons with zero points.\n")
@@ -239,7 +127,8 @@ def collect_points(dct: dict, default_zeros=False) -> None:
                 points = 0
             if points > 1160000:
                 points = 1160000
-            dct[weapon_class][weapon] = points
+            points = 123000  # TK
+            dct[weapon_class][weapon]["points"] = points
 
         if not default_zeros:
             print("~~~~~~~~~~")
@@ -280,7 +169,9 @@ def set_header_row(sheet) -> None:
 def set_up_sheet(sheet, weapons) -> None:
     """
     Sets up basic outline of sheet - column headers,
-    class names, and weapon names
+        class names, weapon names, subs, specials,
+        default zero points, range, role, weight,
+        class-spec-A, class-spec-B, points for special
     :param sheet: sheet to set up
     :param weapons: {class:
                         {weapon: points}
@@ -296,17 +187,30 @@ def set_up_sheet(sheet, weapons) -> None:
         # for getting each weapon into its own cell
         weapons_dct_as_lst = list()
         for weapon in weapons[weapon_class]:
-            weapons_dct_as_lst.append(weapon)
+            if weapon != "spec A" and weapon != "spec B":
+                weapons_dct_as_lst.append(weapon)
 
-        end = len(weapons[weapon_class]) + start
+        class_spec_1 = weapons[weapon_class]["spec A"][0]
+        class_spec_2 = weapons[weapon_class]["spec B"][0]
+        spec_1_offset = weapons[weapon_class]["spec A"][1]
+        spec_2_offset = weapons[weapon_class]["spec B"][1]
+
+        end = len(weapons[weapon_class]) + start - 2    # -2 handles the spec_A and spec_B items
         for row in range(start, end):
             # set weapon class in column A
             sheet.cell(row, 1).value = weapon_class
 
-            # set weapon name in column B and point value in column F
             weapon = weapons_dct_as_lst[row - start]
-            sheet.cell(row, 2).value = weapon
-            sheet.cell(row, 6).value = weapons[weapon_class][weapon]
+            sheet.cell(row, 2).value = weapon  # column B
+            sheet.cell(row, 3).value = weapons[weapon_class][weapon]["sub"]         # C
+            sheet.cell(row, 4).value = weapons[weapon_class][weapon]["special"]     # D
+            sheet.cell(row, 6).value = weapons[weapon_class][weapon]["points"]      # F
+            sheet.cell(row, 11).value = weapons[weapon_class][weapon]["range"]      # K
+            sheet.cell(row, 13).value = weapons[weapon_class][weapon]["role"]       # M
+            sheet.cell(row, 14).value = weapons[weapon_class][weapon]["weight"]     # N
+            sheet.cell(row, 15 + spec_1_offset).value = weapons[weapon_class][weapon][class_spec_1]     # O, P, Q, R
+            sheet.cell(row, 19 + spec_2_offset).value = weapons[weapon_class][weapon][class_spec_2]     # S, T, U, V
+            sheet.cell(row, 24).value = weapons[weapon_class][weapon]["special points"]     # X
 
         start = end
 
@@ -329,7 +233,7 @@ def set_up_sheet(sheet, weapons) -> None:
             if cell.value:
                 dims[cell.column_letter] = max((dims.get(cell.column_letter, 0), len(str(cell.value))))
     for col, val in dims.items():
-        sheet.column_dimensions[col].width = val
+        sheet.column_dimensions[col].width = val + 3
 
 
 def set_up_points_columns(sheet) -> None:
@@ -342,9 +246,6 @@ def set_up_points_columns(sheet) -> None:
         J: progress to next checkpoint as a bar chart
     User's points are held in column F
     :param sheet: sheet to modify
-    :param weapons: {class:
-                        {weapon: points}
-                     }
     :return: None
     """
 
@@ -393,9 +294,10 @@ if __name__ == '__main__':
           "with all of the point values defaulted to zero. If you select (A), you may also type `q` at any\n"
           "time to stop, and have the remaining weapons all defaulted to zero.\n"
           "Please enter your selection:\n")
-    choice = input()
+    # choice = input()
+    choice = "B"  # TK
     while choice.upper() != "A" and choice.upper() != "B":
-        print("Sorry, please make sure you type only A, a, B, or b.\n"
+        print("Sorry, please make sure you type only A or B.\n"
               "A: Fill in your own point values\n"
               "B: Default all values to zero\n")
         choice = input()
