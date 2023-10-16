@@ -9,6 +9,8 @@ If the user does not want to input all their points, and simply wants the spread
 
 *TK - In the future, I would like to have an option to either create a new sheet, or update a pre-existing one as needed, with prompts for class -> weapon within that class -> "here is your current value, please enter your new value" as needed. In the meantime, it only creates a new sheet.
 
+Also in this repo are: a spreadsheet of my own weapons points, as made by the program; and a PDF of my original spreadsheet, as made manually in google sheets.
+
 
 ![freshnessimg](https://github.com/lmgarvey/Splatoon-3-Weapons-Spreadsheet/assets/94126547/38fa66fa-bb74-4a43-b681-24e30a763899)
 
@@ -18,17 +20,15 @@ The console will run through each class alphabetically, and each weapon within t
 
 For example, it will first prompt for weapons in the 'blaster' class, beginning with the blaster, then the clash blaster, then the clash blaster neo, and so on. Once it has prompted all of the blasters, it will prompt for 'brellas', beginning with the sorella brella, then the splat brella. This continues for all the weapons in all the classes. Once all of the points have been provided, the program will create a .xlsx spreadsheet, and save it to the same directory the program is running in.
 
-The spreadsheet has two types of columns - those that will be the same for every user, and those that are specific to each user based on their points input. The former includes: class, weapon, sub, special, range as a number, range as a chart, role, weight, impact (a), damage, ink speed, charge speed, fire rate (b), durability, handling, mobility, mobility as a chart (c), points needed for special.
+The spreadsheet has two types of columns - those that will be the same for every user, and those that are specific to each user based on their points input. The former includes: class, weapon, sub, special, range as a number, range as a chart, role, weight, impact (a), damage, ink speed, charge speed, fire rate (b), durability, handling, mobility, points needed for special.
 
-(a) Every weapon class will only have a value for *one of* impact, damage, ink speed, or charge speed (c).
+(a) Every weapon class will only have a value for *one of* impact, damage, ink speed, or charge speed.
 
-(b) Every weapon class will only have a value for *one of* fire rate, durability, handling, or mobility (c).
-
-(c) I'm leveraging both of the previous facts to our advantage and making the spare columns into a visual aid, as shown below:
+(b) Every weapon class will only have a value for *one of* fire rate, durability, handling, or mobility.
 
 ![chart explanation](https://github.com/lmgarvey/Splatoon-3-Weapons-Spreadsheet/assets/94126547/51bde90a-d223-4da4-81b4-9a546bc55e8f)
 
-As you can see, whichever of the four columns in (a) has a numeric value will have a *chart representation* of that same value in the column directly after. The same goes for the columns in (b). Due to there not being an additional space after the mobility column, I added the column 'mobility as a chart' at the end.
+As you can see, whichever of the four columns in (a) has a numeric value will have a *chart representation* of that same value in the same column. The same goes for the columns in (b).
 
 The types of columns that are specific to each user will be: freshness (out of five stars), current points, the next freshness checkpoint, points remaining to that checkpoint, the progress to that checkpoint as a percentage, and the progress as a chart. The values of these will all vary between users, unless the user forgoes inputting their own points, in which case they will all default to zero stars, zero points, 10000 as the next checkpoint, 10000 remaining, and zero percent progress to the next checkpoint.
 
