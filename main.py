@@ -44,7 +44,7 @@
 
 
 from openpyxl import Workbook
-from openpyxl.styles import Font
+from openpyxl.styles import Font, Alignment
 from openpyxl.formatting.rule import DataBarRule
 
 import build_weapons
@@ -114,7 +114,7 @@ def collect_points(dct: dict, default_zeros=False) -> None:
             if weapon == "spec A" or weapon == "spec B":
                 continue
             if not default_zeros:
-                print("Current points for '{}', or 'q' to quit:".format(weapon))
+                print("Current points for '{}', or 'q' to quit and default to zeros:".format(weapon))
                 points = input()
                 if points.upper() == "Q":
                     default_zeros = True
@@ -132,7 +132,7 @@ def collect_points(dct: dict, default_zeros=False) -> None:
                 points = 0
             if points > 1160000:
                 points = 1160000
-            points = 123000  # TK
+            # points = 123000  # TK
             dct[weapon_class][weapon]["points"] = points
 
         if not default_zeros:
@@ -167,8 +167,7 @@ def set_header_row(sheet) -> None:
     sheet["T1"] = "durability"
     sheet["U1"] = "handling"
     sheet["V1"] = "mobility"
-    sheet["W1"] = "mobility chart"
-    sheet["X1"] = "special points"
+    sheet["W1"] = "special points"
 
 
 def set_up_sheet(sheet, weapons) -> None:
@@ -204,7 +203,7 @@ def set_up_sheet(sheet, weapons) -> None:
         spec_1_offset = weapons[weapon_class]["spec A"][1]
         spec_2_offset = weapons[weapon_class]["spec B"][1]
 
-        end = len(weapons[weapon_class]) + start - 2  # -2 handles the spec_A and spec_B items
+        end = len(weapons[weapon_class]) + start - 2  # -2 discounts the spec_A and spec_B items
         for row in range(start, end):
             # set weapon class in column A
             sheet.cell(row, 1).value = weapon_class
@@ -219,13 +218,24 @@ def set_up_sheet(sheet, weapons) -> None:
             sheet.cell(row, 14).value = weapons[weapon_class][weapon]["weight"]  # N
             sheet.cell(row, 15 + spec_1_offset).value = weapons[weapon_class][weapon][class_spec_1]  # O, P, Q, R
             sheet.cell(row, 19 + spec_2_offset).value = weapons[weapon_class][weapon][class_spec_2]  # S, T, U, V
-            sheet.cell(row, 24).value = weapons[weapon_class][weapon]["special points"]  # X
+            sheet.cell(row, 23).value = weapons[weapon_class][weapon]["special points"]  # W
 
         start = end
 
-    #
-    # formatting!
-    #
+    # set up range chart number in column directly after range-as-number
+    range_rule = DataBarRule(start_type='num', start_value=0, end_type='num', end_value=100,
+                             color="000000", showValue=False)
+    for row in range(2, 103):
+        sheet.cell(row, 12).value = "=K{}".format(row)
+    sheet.conditional_formatting.add('L2:L102', range_rule)
+
+    # range chart in its own column (L), class specs in same column as value (O, P, .., U, V)
+    charts_to_add = ['O2:O102', 'P2:P102', 'Q2:Q102', 'R2:R102',
+                     'S2:S102', 'T2:T102', 'U2:U102', 'V2:V102']
+    specs_rule = DataBarRule(start_type='num', start_value=0, end_type='num', end_value=100,
+                             color="000000", showValue=True)
+    for column in charts_to_add:
+        sheet.conditional_formatting.add(column, specs_rule)
 
     # weapon class, weapon name, and column header always visible:
     sheet.freeze_panes = "C2"
@@ -278,65 +288,22 @@ def set_up_points_columns(sheet) -> None:
         # H: points remaining to next checkpoint
         sheet.cell(row, 8).value = "=G{} - F{}".format(row, row)
 
-        # I: progress to next checkpoint as a percentage
-        sheet.cell(row, 9).value = "=F{} * 100 / G{}".format(row, row)
+        # I: progress to next checkpoint as a percentage, will be 'X' if 5-starred
+        sheet.cell(row, 9).value = "=IF(H{} = 0, \"X\", F{} * 100 / G{})".format(row, row, row)
+
+        # for 5-star weapons, progress (%) shows an 'X', get that right-aligned
+        sheet.cell(row, 9).alignment = Alignment(horizontal='right')
+
+        # round progress percentage to two decimals
+        sheet.cell(row, 9).number_format = '#,##0.00'
 
         # J: progress as bar chart, need the numbers in there first...
-        sheet.cell(row, 10).value = "=F{} * 100 / G{}".format(row, row)
+        sheet.cell(row, 10).value = "=IF(H{} = 0, \"\", F{} * 100 / G{})".format(row, row, row)
 
-    # ...J again: hide the numbers, replace them with a data bar
+    # ...J again: progress bar, hide the numbers, replace them with a data bar
     rule = DataBarRule(start_type='num', start_value=0, end_type='num', end_value=100,
                        color="000000", showValue=False)
     sheet.conditional_formatting.add('J2:J102', rule)
-
-
-def set_up_cell_charts(sheet) -> None:
-    """
-    Sets up the cell bar charts for range and class specific values:
-        L: range as a chart
-        P: impact as a chart (nominally 'damage (numbers)' column)
-        Q: damage as a chart (nominally 'ink speed (numbers)' column)
-        R: ink speed as a chart (nominally 'charge speed (numbers)' column)
-        S: charge speed as a chart (nominally 'fire rate (numbers)' column)
-        T: fire rate as a chart (nominally 'durability (numbers)' column)
-        U: durability as a chart (nominally 'handling (numbers)' column)
-        V: handling as a chart (nominally 'mobility (numbers)' column)
-        W: mobility as a chart (named accordingly)
-    :param sheet: sheet to set up charts on
-    :return: None
-    """
-    # range's value and chart aren't contiguous with class specs, do it separately
-    for row in range(2, 103):
-        sheet.cell(row, 12).value = "=K{}".format(row)
-    rule = DataBarRule(start_type='num', start_value=0, end_type='num', end_value=100,
-                       color="000000", showValue=False)
-    sheet.conditional_formatting.add('L2:L102', rule)
-
-    # grab values from preceding column
-    read_from_col = ['O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W']
-    write_to_col =   [15,  16,  17,  18,  19,  20,  21,  22,  23]
-    for i in range(1, len(read_from_col)):
-        # read value from previous column
-        # eg column P (16)'s value comes from column O (15)
-        read_from = read_from_col[i-1]      # previous column we're reading from
-        write_to = write_to_col[i]          # column to put it in
-        check_val_col = write_to_col[i-1]   # for reading value from column-as-number
-        for row in range(2, 103):
-            # check if there IS a value to read from
-            jinkies = sheet.cell(row, check_val_col).value
-            jonkoes = sheet.cell(row, check_val_col - 1).value
-            # if (value to read)   and  (two columns back is empty or is the weight column)
-            if jinkies is not None and (jonkoes is None or type(jonkoes) == str):
-                sheet.cell(row, write_to).value = "={}{}".format(read_from, row)
-
-    # # turn values into charts: hide the numbers, replace with data bar
-    charts_to_add = ['P2:P12', 'Q13:Q17', 'Q34:Q41', 'Q51:Q90', 'R18:R22', 'R42:R50',
-                     'S23:S33', 'S91:S102', 'T2:T12', 'T51:T77', 'U13:U17', 'V18:V22',
-                     'V42:V50', 'V78:V90', 'W23:W41', 'W91:W102']
-    for column in charts_to_add:
-        rule = DataBarRule(start_type='num', start_value=0, end_type='num', end_value=100,
-                           color="000000", showValue=False)
-        sheet.conditional_formatting.add(column, rule)
 
 
 if __name__ == '__main__':
@@ -351,12 +318,12 @@ if __name__ == '__main__':
     print("At this time, you can choose to (A) fill in your points, or (B) have a spreadsheet created \n"
           "with all of the point values defaulted to zero. If you select (A), you may also type `q` at any\n"
           "time to stop, and have the remaining weapons all defaulted to zero.\n"
-          "Please enter your selection:"
+          "Please enter your selection:\n"
           " A: Create sheet and fill in your own point values\n"
           " B: Create sheet and default all points to zero\n"
           " C: Update an existing sheet (NOT WORKING YET)\n")
-    # choice = input()
-    choice = "B"  # TK
+    choice = input()
+    # choice = "B"  # TK
     while choice.upper() != "A" and choice.upper() != "B":
         print("Sorry, please make sure you type only A or B.\n"
               "A: Fill in your own point values\n"
@@ -376,12 +343,9 @@ if __name__ == '__main__':
     set_up_sheet(numbers_sheet, weapons_dct)
     set_up_points_columns(numbers_sheet)
 
-    # TK: in progress, charts mess up when you sort by anything other than class:weapon
-    set_up_cell_charts(numbers_sheet)
-
     workbook.save(filename="splatoon_weapons.xlsx")
 
     print()
-    print("Done!")
+    print("Done! Your spreadsheet is ready for you in the same directory as this python file.")
 
     formulas_sheet = workbook.create_sheet("formulas")
