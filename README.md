@@ -7,7 +7,7 @@ This program will prompt the user to provide their freshness points for each wea
 
 If the user does not want to input all their points, and simply wants the spreadsheet without the personalization, they can select "Option B - default to zero points" on starting the program. If they want to stop and leave the rest blank sometime after selecting "A" and inputting some values, they can type "q", and the remaining weapons will all be defaulted to zero points.
 
-*TK - In the future, I would like to have an option to either create a new sheet, or update a pre-existing one as needed, with prompts for class -> weapon within that class -> "here is your current value, please enter your new value" as needed. In the meantime, it only creates a new sheet.
+Alternatively, if a user already has a spreadsheet, and wants to only update a few numbers, they can select "Option C - Update an existing sheet" on starting the program. It will prompt them for the filename of the spreadsheet, and that sheet needs to be in the same directory as the main program. It will then continually prompt the user for "weapon class --> weapon name --> point value to set" until the user types 'Z' to quit.
 
 Also in this repo are: a spreadsheet of my own weapons points, as made by the program; and a PDF of my original spreadsheet, as made manually in google sheets.
 
@@ -26,7 +26,7 @@ The spreadsheet has two types of columns - those that will be the same for every
 
 (b) Every weapon class will only have a value for *one of* fire rate, durability, handling, or mobility.
 
-![chart explanation](https://github.com/lmgarvey/Splatoon-3-Weapons-Spreadsheet/assets/94126547/51bde90a-d223-4da4-81b4-9a546bc55e8f)
+![chart explanation](https://github.com/lmgarvey/Splatoon-3-Weapons-Spreadsheet/assets/94126547/9ea20294-4bb7-4d37-928b-46ce5e7e7ec5)
 
 As you can see, whichever of the four columns in (a) has a numeric value will have a *chart representation* of that same value in the same column. The same goes for the columns in (b).
 
