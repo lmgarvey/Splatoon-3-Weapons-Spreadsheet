@@ -37,17 +37,16 @@
 #       four stars, <3, <2, <1, by generalizing the <5 process
 # calculations and charts for non-unique things, eg shooter ranges vs charger ranges
 #       and which subs are more common to certain classes
-# have an option of create vs update, eg mass-changing points
-#       so if they want to have the program go through and change,
-#       you can have a "while (taking input): getclass, getweapon, getpoints, update"
 # matchmaking numbers across classes
 
 
-from openpyxl import Workbook
+from openpyxl import Workbook, load_workbook
 from openpyxl.styles import Font, Alignment
 from openpyxl.formatting.rule import DataBarRule
+from openpyxl.utils.exceptions import InvalidFileException
 
 import build_weapons
+import update_existing
 
 
 def set_up_weapons() -> dict:
@@ -105,6 +104,21 @@ def collect_points(dct: dict, default_zeros=False) -> None:
         False: prompt user for their points
     :return: None
     """
+    # TK
+    my_points = [12660, 17960, 10235, 11485, 31220, 62925, 10600, 10200, 11630,
+                 10200, 10000, 10400, 11235, 11045, 11200, 12200, 25370, 10135,
+                 162130, 10800, 10200, 10000, 11200, 10600, 17800, 10800, 10435,
+                 14200, 11000, 10000, 10200, 10200, 10500, 11810, 10400, 18815,
+                 61920, 10120, 10785, 15940, 13195, 11000, 11000, 17400, 67655,
+                 35400, 10000, 10200, 10285, 61665, 10000, 25365, 17900, 60695,
+                 18460, 10700, 333330, 73710, 10000, 10400, 10255, 10300, 10400,
+                 10000, 64320, 65405, 246220, 10200, 107930, 163410, 1160000,
+                 12010, 10060, 10200, 11000, 161055, 1160000, 161885, 10000,
+                 13185, 11575, 10200, 1160000, 10200, 65105, 10200, 160825,
+                 152945, 10400, 10130, 10600, 10200, 10710, 11000, 10605,
+                 10700, 259260, 10400, 10200, 16810, 14900]
+    point_itr = 0
+
     for weapon_class in dct:
         if not default_zeros:
             print("\n")
@@ -124,7 +138,7 @@ def collect_points(dct: dict, default_zeros=False) -> None:
                     try:
                         points = int(points)
                     except ValueError:
-                        print("Invalid points number, settings points = 0.\n")
+                        print("Invalid points input, settings points for {} = 0.\n".format(weapon))
                         points = 0
             else:
                 points = 0
@@ -132,8 +146,10 @@ def collect_points(dct: dict, default_zeros=False) -> None:
                 points = 0
             if points > 1160000:
                 points = 1160000
-            # points = 123000  # TK
-            dct[weapon_class][weapon]["points"] = points
+            # dct[weapon_class][weapon]["points"] = points
+            # dct[weapon_class][weapon]["points"] = my_points[point_itr]  # TK
+            dct[weapon_class][weapon]["points"] = 0  # TK
+            point_itr += 1
 
         if not default_zeros:
             print("~~~~~~~~~~")
@@ -306,6 +322,28 @@ def set_up_points_columns(sheet) -> None:
     sheet.conditional_formatting.add('J2:J102', rule)
 
 
+def create_new_sheet() -> None:
+    """
+    Creates a new spreadsheet
+    :return: None
+    """
+    book = Workbook()
+    numbers_sheet = book.active
+    numbers_sheet.title = "numbers"
+
+    weapons_dct = set_up_weapons()
+    collect_points(weapons_dct, default_to_zeros)
+    set_up_sheet(numbers_sheet, weapons_dct)
+    set_up_points_columns(numbers_sheet)
+
+    book.save(filename="splatoon_weapons.xlsx")
+
+    print()
+    print("Done! Your spreadsheet is ready for you in the same directory as this python file.")
+
+    formulas_sheet = book.create_sheet("formulas")
+
+
 if __name__ == '__main__':
     print("Welcome to `Creating your Splatoon 3 weapons spreadsheet!`\n")
     print()
@@ -321,31 +359,51 @@ if __name__ == '__main__':
           "Please enter your selection:\n"
           " A: Create sheet and fill in your own point values\n"
           " B: Create sheet and default all points to zero\n"
-          " C: Update an existing sheet (NOT WORKING YET)\n")
+          " C: Update an existing sheet\n")
     choice = input()
-    # choice = "B"  # TK
-    while choice.upper() != "A" and choice.upper() != "B":
-        print("Sorry, please make sure you type only A or B.\n"
+    while choice.upper() != "A" and choice.upper() != "B" and choice.upper() != "C":
+        print("Sorry, please make sure you type only A, B, or C.\n"
               "A: Fill in your own point values\n"
-              "B: Default all points to zero\n")
+              "B: Default all points to zero\n"
+              "C: Update an existing sheet\n")
         choice = input()
 
     default_to_zeros = False
     if choice.upper() == "B":
         default_to_zeros = True
 
-    workbook = Workbook()
-    numbers_sheet = workbook.active
-    numbers_sheet.title = "numbers"
+    loading = False
+    if choice.upper() == "C":
+        print("To update an existing sheet, please make sure it has the \'.xlsx\' extension"
+              "type, and that it is in the same directory as this python file.\n"
+              "Please enter the name of the existing sheet, *exactly* as it appears in the directory.\n")
+        choice = input()
+        while True:
+            try:
+                workbook = load_workbook(choice)
+                loading = True
+                break
+            except InvalidFileException:
+                print("Invalid file name. Please enter one of the following:\n"
+                      "A: Create a new sheet and fill in your own point values\n"
+                      "B: Create a new sheet and default all points to zero\n"
+                      "C: Enter the file name of an existing sheet, as \"example.xlsx\"\n")
+                choice = input()
+                if choice.upper() == "A":
+                    # proceed as normal with collecting points
+                    break
+                elif choice.upper() == "B":
+                    # create new sheet, default to zeros
+                    default_to_zeros = True
+                    break
 
-    weapons_dct = set_up_weapons()
-    collect_points(weapons_dct, default_to_zeros)
-    set_up_sheet(numbers_sheet, weapons_dct)
-    set_up_points_columns(numbers_sheet)
+    if loading:
+        # option C, loading into an existing worksheet
+        print("Loading into existing worksheet named: {}\n"
+              "Note: the program assumes that your weapon names are stored in column B,\n"
+              "and your current points are stored in column F.\n".format(choice))
+        book = load_workbook(choice)
+        update_existing.update_wrapper(book, choice)
 
-    workbook.save(filename="splatoon_weapons.xlsx")
-
-    print()
-    print("Done! Your spreadsheet is ready for you in the same directory as this python file.")
-
-    formulas_sheet = workbook.create_sheet("formulas")
+    else:
+        create_new_sheet()
