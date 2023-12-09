@@ -5,24 +5,25 @@
 #
 # the dictionaries used to select a class and weapon to update
 #
-blasters_dct = {"A": "blaster", "B": "clash blaster", "C": "clash blaster neo", "D": "luna blaster",
-                "E": "luna blaster neo", "F": "range blaster", "G": "rapid blaster", "H": "rapid blaster deco",
-                "I": "rapid blaster pro", "J": "rapid blaster pro deco", "K": "s-blast '92", "Z": "DONE"}
+blasters_dct = {"A": "blaster", "B": "clash blaster", "C": "clash blaster neo", "D": "custom blaster",
+                "E": "luna blaster", "F": "luna blaster neo", "G": "range blaster", "H": "rapid blaster",
+                "I": "rapid blaster deco", "J": "rapid blaster pro", "K": "rapid blaster pro deco",
+                "L": "s-blast '91", "M": "s-blast '92", "Z": "DONE"}
 
 brellas_dct = {"A": "sorella brella", "B": "splat brella", "C": "tenta brella",
-               "D": "tenta sorella brella", "E": "undercover brella", "Z": "DONE"}
+               "D": "tenta sorella brella", "E": "undercover brella", "F": "undercover sorella brella", "Z": "DONE"}
 
 brushes_dct = {"A": "inkbrush", "B": "inkbrush nouveau", "C": "octobrush",
-               "D": "octobrush nouveau", "E": "painbrush", "Z": "DONE"}
+               "D": "octobrush nouveau", "E": "painbrush", "F": "painbrush nouveau", "Z": "DONE"}
 
 chargers_dct = {"A": "bamboozler 14 mk I", "B": "classic squiffer", "C": "custom goo tuber",
-                "D": "e-liter 4k", "E": "e-liter 4k scope", "F": "goo tuber", "G": "snipewriter 5h",
-                "H": "splat charger", "I": "splatterscope", "J": "z+f splat charger",
-                "K": "z+f splatterscope", "Z": "DONE"}
+                "D": "e-liter 4k", "E": "e-liter 4k scope", "F": "goo tuber", "G": "snipewriter 5b",
+                "H": "snipewriter 5h", "I": "splat charger", "J": "splatterscope", "K": "z+f splat charger",
+                "L": "z+f splatterscope", "Z": "DONE"}
 
 dualies_dct = {"A": "custom dualie squelchers", "B": "dapple dualies", "C": "dapple dualies nouveau",
-               "D": "dark tetra dualies", "E": "dualie squelchers", "F": "glooga dualies",
-               "G": "light tetra dualies", "H": "splat dualies", "Z": "DONE"}
+               "D": "dark tetra dualies", "E": "dualie squelchers", "F": "enperry splat dualies",
+               "G": "glooga dualies", "H": "light tetra dualies", "I": "splat dualies", "Z": "DONE"}
 
 rollers_dct = {"A": "big swig roller", "B": "big swig roller express", "C": "carbon roller",
                "D": "carbon roller deco", "E": "dynamo roller", "F": "flingza roller",
@@ -30,23 +31,26 @@ rollers_dct = {"A": "big swig roller", "B": "big swig roller express", "C": "car
 
 shooters_dct = {"A": ".52 gal", "B": ".96 gal", "C": ".96 gal deco", "D": "aerospray mg", "E": "aerospray rg",
                 "F": "annaki splattershot nova", "G": "custom jet squelcher", "H": "custom splattershot jr",
-                "I": "forge splattershot pro", "J": "h-3 nozzlenose", "K": "h-3 nozzlenose d", "L": "hero shot replica",
-                "M": "jet squelcher", "N": "l-3 nozzlenose", "O": "l-3 nozzlenose d", "P": "n-zap '85",
-                "Q": "n-zap '89", "R": "neo splash-o-matic", "S": "neo sploosh-o-matic", "T": "splash-o-matic",
-                "U": "splattershot", "V": "splattershot jr", "W": "splattershot nova", "X": "splattershot pro",
-                "Y": "sploosh-o-matic", "AA": "squeezer", "BB": "tentatek splattershot", "Z": "DONE"}
+                "I": "foil squeezer", "J": "forge splattershot pro", "K": "h-3 nozzlenose", "L": "h-3 nozzlenose d",
+                "M": "hero shot replica", "N": "jet squelcher", "O": "l-3 nozzlenose", "P": "l-3 nozzlenose d",
+                "Q": "n-zap '85", "R": "n-zap '89", "S": "neo splash-o-matic", "T": "neo sploosh-o-matic",
+                "U": "splash-o-matic", "V": "splattershot", "W": "splattershot jr", "X": "splattershot nova",
+                "Y": "splattershot pro", "AA": "sploosh-o-matic", "BB": "squeezer", "CC": "tentatek splattershot",
+                "Z": "DONE"}
 
 sloshers_dct = {"A": "bloblobber", "B": "bloblobber deco", "C": "dread wringer", "D": "explosher", "E": "slosher",
                 "F": "slosher deco", "G": "sloshing machine", "H": "sloshing machine neo", "I": "tri-slosher",
                 "J": "tri-slosher nouveau", "Z": "DONE"}
 
-splatanas_dct = {"A": "splatana stamper", "B": "splatana wiper", "C": "splatana wiper deco", "Z": "DONE"}
+splatanas_dct = {"A": "neo splatana stamper", "B": "splatana stamper", "C": "splatana wiper",
+                 "D": "splatana wiper deco", "Z": "DONE"}
 
 splatlings_dct = {"A": "ballpoint splatling", "B": "ballpoint splatling nouveau", "C": "heavy edit splatling",
                   "D": "heavy splatling", "E": "heavy splatling deco", "F": "hydra splatling",
                   "G": "mini splatling", "H": "nautilus 47", "I": "zink mini splatling", "Z": "DONE"}
 
-stringers_dct = {"A": "inkline tri-stringer", "B": "reef-lux 450", "C": "tri-stringer", "Z": "DONE"}
+stringers_dct = {"A": "inkline tri-stringer", "B": "reef-lux 450", "C": "reef-lux 450 deco",
+                 "D": "tri-stringer", "Z": "DONE"}
 
 pick_class = {"A": "blaster", "B": "brella", "C": "brush", "D": "charger", "E": "dualies", "F": "roller",
               "G": "shooter", "H": "slosher", "I": "splatana", "J": "splatling", "K": "stringer",
@@ -73,7 +77,7 @@ def update_weapon(book, book_name, weapon) -> None:
         points = 0
     if points > 1160000:
         points = 1160000
-    for row in range(2, 103):
+    for row in range(2, 112):
         if sheet.cell(row, 2).value == weapon:
             sheet.cell(row, 6).value = points
             print("Successfully set {} to have {} points.\n".format(weapon, points))

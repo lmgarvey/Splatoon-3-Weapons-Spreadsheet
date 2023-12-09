@@ -2,7 +2,7 @@
 
 # helper file for main.py to build the weapon dictionaries
 # this is ostensibly to keep the main file cleaner, and not clutter it up
-#       with 101 weapon initializations
+#       with 100+ weapon initializations
 
 # for each class, the associated function will set up a dictionary of the form:
 #   {   spec A: ( name of class specific A, offset from first spec A column as 0-3 )
@@ -31,9 +31,9 @@ def build_blasters() -> dict:
     :return: the blaster dictionary
     """
 
-    blasters = ["blaster", "clash blaster", "clash blaster neo", "luna blaster", "luna blaster neo",
-                "range blaster", "rapid blaster", "rapid blaster deco", "rapid blaster pro",
-                "rapid blaster pro deco", "s-blast '92"]
+    blasters = ["blaster", "clash blaster", "clash blaster neo", "custom blaster", "luna blaster",
+                "luna blaster neo", "range blaster", "rapid blaster", "rapid blaster deco",
+                "rapid blaster pro", "rapid blaster pro deco", "s-blast '91", "s-blast '92"]
 
     blaster_dct = dict()
     for blaster in blasters:
@@ -70,7 +70,17 @@ def build_blasters() -> dict:
     blaster_dct["clash blaster neo"]["weight"] = "light"
     blaster_dct["clash blaster neo"]["impact"] = 30
     blaster_dct["clash blaster neo"]["fire rate"] = 65
-    blaster_dct["clash blaster neo"]["special points"] = 180
+    blaster_dct["clash blaster neo"]["special points"] = 170
+
+    blaster_dct["custom blaster"]["sub"] = "point sensor"
+    blaster_dct["custom blaster"]["special"] = "triple splashdown"
+    blaster_dct["custom blaster"]["points"] = 0
+    blaster_dct["custom blaster"]["range"] = 27
+    blaster_dct["custom blaster"]["role"] = "slayer"
+    blaster_dct["custom blaster"]["weight"] = "middle"
+    blaster_dct["custom blaster"]["impact"] = 70
+    blaster_dct["custom blaster"]["fire rate"] = 20
+    blaster_dct["custom blaster"]["special points"] = 180
 
     blaster_dct["luna blaster"]["sub"] = "splat bomb"
     blaster_dct["luna blaster"]["special"] = "zipcaster"
@@ -110,7 +120,7 @@ def build_blasters() -> dict:
     blaster_dct["rapid blaster"]["weight"] = "middle"
     blaster_dct["rapid blaster"]["impact"] = 35
     blaster_dct["rapid blaster"]["fire rate"] = 40
-    blaster_dct["rapid blaster"]["special points"] = 200
+    blaster_dct["rapid blaster"]["special points"] = 190
 
     blaster_dct["rapid blaster deco"]["sub"] = "torpedo"
     blaster_dct["rapid blaster deco"]["special"] = "inkjet"
@@ -140,7 +150,17 @@ def build_blasters() -> dict:
     blaster_dct["rapid blaster pro deco"]["weight"] = "middle"
     blaster_dct["rapid blaster pro deco"]["impact"] = 35
     blaster_dct["rapid blaster pro deco"]["fire rate"] = 30
-    blaster_dct["rapid blaster pro deco"]["special points"] = 180
+    blaster_dct["rapid blaster pro deco"]["special points"] = 190
+
+    blaster_dct["s-blast '91"]["sub"] = "burst bomb"
+    blaster_dct["s-blast '91"]["special"] = "booyah bomb"
+    blaster_dct["s-blast '91"]["points"] = 0
+    blaster_dct["s-blast '91"]["range"] = 45
+    blaster_dct["s-blast '91"]["role"] = "slayer"
+    blaster_dct["s-blast '91"]["weight"] = "middle"
+    blaster_dct["s-blast '91"]["impact"] = 70
+    blaster_dct["s-blast '91"]["fire rate"] = 10
+    blaster_dct["s-blast '91"]["special points"] = 190
 
     blaster_dct["s-blast '92"]["sub"] = "sprinkler"
     blaster_dct["s-blast '92"]["special"] = "reefslider"
@@ -162,7 +182,7 @@ def build_brellas() -> dict:
     :return: the brella dictionary
     """
     brellas = ["sorella brella", "splat brella", "tenta brella",
-               "tenta sorella brella", "undercover brella"]
+               "tenta sorella brella", "undercover brella", "undercover sorella brella"]
 
     brellas_dct = dict()
     for brella in brellas:
@@ -221,6 +241,16 @@ def build_brellas() -> dict:
     brellas_dct["undercover brella"]["durability"] = 25
     brellas_dct["undercover brella"]["special points"] = 180
 
+    brellas_dct["undercover sorella brella"]["sub"] = "torpedo"
+    brellas_dct["undercover sorella brella"]["special"] = "splattercolor screen"
+    brellas_dct["undercover sorella brella"]["points"] = 0
+    brellas_dct["undercover sorella brella"]["range"] = 50
+    brellas_dct["undercover sorella brella"]["role"] = "skirmisher"
+    brellas_dct["undercover sorella brella"]["weight"] = "light"
+    brellas_dct["undercover sorella brella"]["damage"] = 30
+    brellas_dct["undercover sorella brella"]["durability"] = 25
+    brellas_dct["undercover sorella brella"]["special points"] = 180
+
     return brellas_dct
 
 
@@ -230,7 +260,7 @@ def build_brushes() -> dict:
     class specifics: ink speed, handling
     :return: the brush dictionary
     """
-    brushes = ["inkbrush", "inkbrush nouveau", "octobrush", "octobrush nouveau", "painbrush"]
+    brushes = ["inkbrush", "inkbrush nouveau", "octobrush", "octobrush nouveau", "painbrush", "painbrush nouveau"]
 
     brushes_dct = dict()
     for brush in brushes:
@@ -289,6 +319,16 @@ def build_brushes() -> dict:
     brushes_dct["painbrush"]["handling"] = 60
     brushes_dct["painbrush"]["special points"] = 200
 
+    brushes_dct["painbrush nouveau"]["sub"] = "point sensor"
+    brushes_dct["painbrush nouveau"]["special"] = "tneta missiles"
+    brushes_dct["painbrush nouveau"]["points"] = 0
+    brushes_dct["painbrush nouveau"]["range"] = 33
+    brushes_dct["painbrush nouveau"]["role"] = "anchor, slayer, support"
+    brushes_dct["painbrush nouveau"]["weight"] = "middle"
+    brushes_dct["painbrush nouveau"]["ink speed"] = 85
+    brushes_dct["painbrush nouveau"]["handling"] = 60
+    brushes_dct["painbrush nouveau"]["special points"] = 190
+
     return brushes_dct
 
 
@@ -299,8 +339,8 @@ def build_chargers() -> dict:
     :return: the charger dictionary
     """
     chargers = ["bamboozler 14 mk I", "classic squiffer", "custom goo tuber", "e-liter 4k", "e-liter 4k scope",
-                "goo tuber", "snipewriter 5h", "splat charger", "splatterscope", "z+f splat charger",
-                "z+f splatterscope"]
+                "goo tuber", "snipewriter 5b", "snipewriter 5h", "splat charger", "splatterscope",
+                "z+f splat charger", "z+f splatterscope"]
 
     chargers_dct = dict()
     for charger in chargers:
@@ -369,6 +409,16 @@ def build_chargers() -> dict:
     chargers_dct["goo tuber"]["mobility"] = 70
     chargers_dct["goo tuber"]["special points"] = 200
 
+    chargers_dct["snipewriter 5b"]["sub"] = "splash wall"
+    chargers_dct["snipewriter 5b"]["special"] = "ink storm"
+    chargers_dct["snipewriter 5b"]["points"] = 0
+    chargers_dct["snipewriter 5b"]["range"] = 91
+    chargers_dct["snipewriter 5b"]["role"] = "anchor, support"
+    chargers_dct["snipewriter 5b"]["weight"] = "middle"
+    chargers_dct["snipewriter 5b"]["charge speed"] = 43
+    chargers_dct["snipewriter 5b"]["mobility"] = 80
+    chargers_dct["snipewriter 5b"]["special points"] = 210
+
     chargers_dct["snipewriter 5h"]["sub"] = "sprinkler"
     chargers_dct["snipewriter 5h"]["special"] = "tacticooler"
     chargers_dct["snipewriter 5h"]["points"] = 0
@@ -429,7 +479,7 @@ def build_dualies() -> dict:
     :return: the dualies dictionary
     """
     dualies = ["custom dualie squelchers", "dapple dualies", "dapple dualies nouveau", "dark tetra dualies",
-               "dualie squelchers", "glooga dualies", "light tetra dualies", "splat dualies"]
+               "dualie squelchers", "enperry splat dualies", "glooga dualies", "light tetra dualies", "splat dualies"]
 
     dualies_dct = dict()
     for weapon in dualies:
@@ -444,9 +494,9 @@ def build_dualies() -> dict:
     dualies_dct["custom dualie squelchers"]["range"] = 70
     dualies_dct["custom dualie squelchers"]["role"] = "skirmisher, slayer, support"
     dualies_dct["custom dualie squelchers"]["weight"] = "middle"
-    dualies_dct["custom dualie squelchers"]["damage"] = 28
+    dualies_dct["custom dualie squelchers"]["damage"] = 22
     dualies_dct["custom dualie squelchers"]["mobility"] = 70
-    dualies_dct["custom dualie squelchers"]["special points"] = 200
+    dualies_dct["custom dualie squelchers"]["special points"] = 210
 
     dualies_dct["dapple dualies"]["sub"] = "squid beakon"
     dualies_dct["dapple dualies"]["special"] = "tacticooler"
@@ -484,9 +534,19 @@ def build_dualies() -> dict:
     dualies_dct["dualie squelchers"]["range"] = 70
     dualies_dct["dualie squelchers"]["role"] = "support"
     dualies_dct["dualie squelchers"]["weight"] = "middle"
-    dualies_dct["dualie squelchers"]["damage"] = 28
+    dualies_dct["dualie squelchers"]["damage"] = 22
     dualies_dct["dualie squelchers"]["mobility"] = 70
     dualies_dct["dualie squelchers"]["special points"] = 200
+
+    dualies_dct["enperry splat dualies"]["sub"] = "curling bomb"
+    dualies_dct["enperry splat dualies"]["special"] = "triple splashdown"
+    dualies_dct["enperry splat dualies"]["points"] = 0
+    dualies_dct["enperry splat dualies"]["range"] = 50
+    dualies_dct["enperry splat dualies"]["role"] = "slayer, support"
+    dualies_dct["enperry splat dualies"]["weight"] = "middle"
+    dualies_dct["enperry splat dualies"]["damage"] = 29
+    dualies_dct["enperry splat dualies"]["mobility"] = 60
+    dualies_dct["enperry splat dualies"]["special points"] = 190
 
     dualies_dct["glooga dualies"]["sub"] = "splash wall"
     dualies_dct["glooga dualies"]["special"] = "booyah bomb"
@@ -514,7 +574,7 @@ def build_dualies() -> dict:
     dualies_dct["splat dualies"]["range"] = 50
     dualies_dct["splat dualies"]["role"] = "slayer, support"
     dualies_dct["splat dualies"]["weight"] = "middle"
-    dualies_dct["splat dualies"]["damage"] = 30
+    dualies_dct["splat dualies"]["damage"] = 29
     dualies_dct["splat dualies"]["mobility"] = 60
     dualies_dct["splat dualies"]["special points"] = 190
 
@@ -545,7 +605,7 @@ def build_rollers() -> dict:
     rollers_dct["big swig roller"]["weight"] = "middle"
     rollers_dct["big swig roller"]["ink speed"] = 54
     rollers_dct["big swig roller"]["handling"] = 60
-    rollers_dct["big swig roller"]["special points"] = 200
+    rollers_dct["big swig roller"]["special points"] = 190
 
     rollers_dct["big swig roller express"]["sub"] = "angle shooter"
     rollers_dct["big swig roller express"]["special"] = "ink storm"
@@ -565,7 +625,7 @@ def build_rollers() -> dict:
     rollers_dct["carbon roller"]["weight"] = "light"
     rollers_dct["carbon roller"]["ink speed"] = 63
     rollers_dct["carbon roller"]["handling"] = 65
-    rollers_dct["carbon roller"]["special points"] = 180
+    rollers_dct["carbon roller"]["special points"] = 170
 
     rollers_dct["carbon roller deco"]["sub"] = "burst bomb"
     rollers_dct["carbon roller deco"]["special"] = "trizooka"
@@ -637,11 +697,11 @@ def build_shooters() -> dict:
     :return: the shooter dictionary
     """
     shooters = [".52 gal", ".96 gal", ".96 gal deco", "aerospray mg", "aerospray rg", "annaki splattershot nova",
-                "custom jet squelcher", "custom splattershot jr", "forge splattershot pro", "h-3 nozzlenose",
-                "h-3 nozzlenose d", "hero shot replica", "jet squelcher", "l-3 nozzlenose", "l-3 nozzlenose d",
-                "n-zap '85", "n-zap '89", "neo splash-o-matic", "neo sploosh-o-matic", "splash-o-matic",
-                "splattershot", "splattershot jr", "splattershot nova", "splattershot pro", "sploosh-o-matic",
-                "squeezer", "tentatek splattershot"]
+                "custom jet squelcher", "custom splattershot jr", "foil squeezer", "forge splattershot pro",
+                "h-3 nozzlenose", "h-3 nozzlenose d", "hero shot replica", "jet squelcher", "l-3 nozzlenose",
+                "l-3 nozzlenose d", "n-zap '85", "n-zap '89", "neo splash-o-matic", "neo sploosh-o-matic",
+                "splash-o-matic", "splattershot", "splattershot jr", "splattershot nova", "splattershot pro",
+                "sploosh-o-matic", "squeezer", "tentatek splattershot"]
 
     shooters_dct = dict()
     for shooter in shooters:
@@ -698,7 +758,7 @@ def build_shooters() -> dict:
     shooters_dct["aerospray rg"]["weight"] = "light"
     shooters_dct["aerospray rg"]["damage"] = 10
     shooters_dct["aerospray rg"]["fire rate"] = 90
-    shooters_dct["aerospray rg"]["special points"] = 200
+    shooters_dct["aerospray rg"]["special points"] = 210
 
     shooters_dct["annaki splattershot nova"]["sub"] = "ink mine"
     shooters_dct["annaki splattershot nova"]["special"] = "inkjet"
@@ -706,9 +766,9 @@ def build_shooters() -> dict:
     shooters_dct["annaki splattershot nova"]["range"] = 68
     shooters_dct["annaki splattershot nova"]["role"] = "support"
     shooters_dct["annaki splattershot nova"]["weight"] = "middle"
-    shooters_dct["annaki splattershot nova"]["damage"] = 20
+    shooters_dct["annaki splattershot nova"]["damage"] = 10
     shooters_dct["annaki splattershot nova"]["fire rate"] = 60
-    shooters_dct["annaki splattershot nova"]["special points"] = 200
+    shooters_dct["annaki splattershot nova"]["special points"] = 210
 
     shooters_dct["custom jet squelcher"]["sub"] = "toxic mist"
     shooters_dct["custom jet squelcher"]["special"] = "ink storm"
@@ -729,6 +789,16 @@ def build_shooters() -> dict:
     shooters_dct["custom splattershot jr"]["damage"] = 22
     shooters_dct["custom splattershot jr"]["fire rate"] = 75
     shooters_dct["custom splattershot jr"]["special points"] = 190
+
+    shooters_dct["foil squeezer"]["sub"] = "autobomb"
+    shooters_dct["foil squeezer"]["special"] = "splattercolor screen"
+    shooters_dct["foil squeezer"]["points"] = 0
+    shooters_dct["foil squeezer"]["range"] = 77
+    shooters_dct["foil squeezer"]["role"] = "skirmisher, slayer"
+    shooters_dct["foil squeezer"]["weight"] = "middle"
+    shooters_dct["foil squeezer"]["damage"] = 52
+    shooters_dct["foil squeezer"]["fire rate"] = 30
+    shooters_dct["foil squeezer"]["special points"] = 190
 
     shooters_dct["forge splattershot pro"]["sub"] = "suction bomb"
     shooters_dct["forge splattershot pro"]["special"] = "booyah bomb"
@@ -778,7 +848,7 @@ def build_shooters() -> dict:
     shooters_dct["jet squelcher"]["weight"] = "middle"
     shooters_dct["jet squelcher"]["damage"] = 35
     shooters_dct["jet squelcher"]["fire rate"] = 30
-    shooters_dct["jet squelcher"]["special points"] = 190
+    shooters_dct["jet squelcher"]["special points"] = 180
 
     shooters_dct["l-3 nozzlenose"]["sub"] = "curling bomb"
     shooters_dct["l-3 nozzlenose"]["special"] = "crab tank"
@@ -788,7 +858,7 @@ def build_shooters() -> dict:
     shooters_dct["l-3 nozzlenose"]["weight"] = "middle"
     shooters_dct["l-3 nozzlenose"]["damage"] = 25
     shooters_dct["l-3 nozzlenose"]["fire rate"] = 65
-    shooters_dct["l-3 nozzlenose"]["special points"] = 200
+    shooters_dct["l-3 nozzlenose"]["special points"] = 190
 
     shooters_dct["l-3 nozzlenose d"]["sub"] = "burst bomb"
     shooters_dct["l-3 nozzlenose d"]["special"] = "ultra stamp"
@@ -806,9 +876,9 @@ def build_shooters() -> dict:
     shooters_dct["n-zap '85"]["range"] = 50
     shooters_dct["n-zap '85"]["role"] = "slayer, support"
     shooters_dct["n-zap '85"]["weight"] = "light"
-    shooters_dct["n-zap '85"]["damage"] = 28
+    shooters_dct["n-zap '85"]["damage"] = 22
     shooters_dct["n-zap '85"]["fire rate"] = 75
-    shooters_dct["n-zap '85"]["special points"] = 180
+    shooters_dct["n-zap '85"]["special points"] = 190
 
     shooters_dct["n-zap '89"]["sub"] = "autobomb"
     shooters_dct["n-zap '89"]["special"] = "super chump"
@@ -816,7 +886,7 @@ def build_shooters() -> dict:
     shooters_dct["n-zap '89"]["range"] = 50
     shooters_dct["n-zap '89"]["role"] = "slayer, support"
     shooters_dct["n-zap '89"]["weight"] = "light"
-    shooters_dct["n-zap '89"]["damage"] = 28
+    shooters_dct["n-zap '89"]["damage"] = 22
     shooters_dct["n-zap '89"]["fire rate"] = 75
     shooters_dct["n-zap '89"]["special points"] = 180
 
@@ -826,7 +896,7 @@ def build_shooters() -> dict:
     shooters_dct["neo splash-o-matic"]["range"] = 42
     shooters_dct["neo splash-o-matic"]["role"] = "slayer, support"
     shooters_dct["neo splash-o-matic"]["weight"] = "light"
-    shooters_dct["neo splash-o-matic"]["damage"] = 28
+    shooters_dct["neo splash-o-matic"]["damage"] = 22
     shooters_dct["neo splash-o-matic"]["fire rate"] = 75
     shooters_dct["neo splash-o-matic"]["special points"] = 210
 
@@ -846,7 +916,7 @@ def build_shooters() -> dict:
     shooters_dct["splash-o-matic"]["range"] = 42
     shooters_dct["splash-o-matic"]["role"] = "slayer, support"
     shooters_dct["splash-o-matic"]["weight"] = "light"
-    shooters_dct["splash-o-matic"]["damage"] = 28
+    shooters_dct["splash-o-matic"]["damage"] = 22
     shooters_dct["splash-o-matic"]["fire rate"] = 75
     shooters_dct["splash-o-matic"]["special points"] = 200
 
@@ -876,7 +946,7 @@ def build_shooters() -> dict:
     shooters_dct["splattershot nova"]["range"] = 68
     shooters_dct["splattershot nova"]["role"] = "support"
     shooters_dct["splattershot nova"]["weight"] = "middle"
-    shooters_dct["splattershot nova"]["damage"] = 20
+    shooters_dct["splattershot nova"]["damage"] = 10
     shooters_dct["splattershot nova"]["fire rate"] = 60
     shooters_dct["splattershot nova"]["special points"] = 190
 
@@ -908,7 +978,7 @@ def build_shooters() -> dict:
     shooters_dct["squeezer"]["weight"] = "middle"
     shooters_dct["squeezer"]["damage"] = 52
     shooters_dct["squeezer"]["fire rate"] = 30
-    shooters_dct["squeezer"]["special points"] = 200
+    shooters_dct["squeezer"]["special points"] = 210
 
     shooters_dct["tentatek splattershot"]["sub"] = "splat bomb"
     shooters_dct["tentatek splattershot"]["special"] = "triple inkstrike"
@@ -1037,7 +1107,7 @@ def build_sloshers() -> dict:
     sloshers_dct["tri-slosher nouveau"]["weight"] = "light"
     sloshers_dct["tri-slosher nouveau"]["damage"] = 75
     sloshers_dct["tri-slosher nouveau"]["handling"] = 70
-    sloshers_dct["tri-slosher nouveau"]["special points"] = 180
+    sloshers_dct["tri-slosher nouveau"]["special points"] = 200
 
     return sloshers_dct
 
@@ -1048,7 +1118,7 @@ def build_splatanas() -> dict:
     class specifics: damage, handling
     :return: the splatana dictionary
     """
-    splatanas = ["splatana stamper", "splatana wiper", "splatana wiper deco"]
+    splatanas = ["neo splatana stamper", "splatana stamper", "splatana wiper", "splatana wiper deco"]
 
     splatanas_dct = dict()
     for splatana in splatanas:
@@ -1056,6 +1126,16 @@ def build_splatanas() -> dict:
 
     splatanas_dct["spec A"] = ("damage", 1)
     splatanas_dct["spec B"] = ("handling", 2)
+
+    splatanas_dct["neo splatana stamper"]["sub"] = "toxic mist"
+    splatanas_dct["neo splatana stamper"]["special"] = "crab tank"
+    splatanas_dct["neo splatana stamper"]["points"] = 0
+    splatanas_dct["neo splatana stamper"]["range"] = 75
+    splatanas_dct["neo splatana stamper"]["role"] = "slayer"
+    splatanas_dct["neo splatana stamper"]["weight"] = "middle"
+    splatanas_dct["neo splatana stamper"]["damage"] = 43
+    splatanas_dct["neo splatana stamper"]["handling"] = 60
+    splatanas_dct["neo splatana stamper"]["special points"] = 210
 
     splatanas_dct["splatana stamper"]["sub"] = "burst bomb"
     splatanas_dct["splatana stamper"]["special"] = "zipcaster"
@@ -1065,7 +1145,7 @@ def build_splatanas() -> dict:
     splatanas_dct["splatana stamper"]["weight"] = "middle"
     splatanas_dct["splatana stamper"]["damage"] = 43
     splatanas_dct["splatana stamper"]["handling"] = 60
-    splatanas_dct["splatana stamper"]["special points"] = 200
+    splatanas_dct["splatana stamper"]["special points"] = 210
 
     splatanas_dct["splatana wiper"]["sub"] = "torpedo"
     splatanas_dct["splatana wiper"]["special"] = "ultra stamp"
@@ -1114,7 +1194,7 @@ def build_splatlings() -> dict:
     splatlings_dct["ballpoint splatling"]["weight"] = "middle"
     splatlings_dct["ballpoint splatling"]["charge speed"] = 18
     splatlings_dct["ballpoint splatling"]["mobility"] = 60
-    splatlings_dct["ballpoint splatling"]["special points"] = 200
+    splatlings_dct["ballpoint splatling"]["special points"] = 210
 
     splatlings_dct["ballpoint splatling nouveau"]["sub"] = "ink mine"
     splatlings_dct["ballpoint splatling nouveau"]["special"] = "ink vac"
@@ -1174,7 +1254,7 @@ def build_splatlings() -> dict:
     splatlings_dct["mini splatling"]["weight"] = "middle"
     splatlings_dct["mini splatling"]["charge speed"] = 80
     splatlings_dct["mini splatling"]["mobility"] = 90
-    splatlings_dct["mini splatling"]["special points"] = 180
+    splatlings_dct["mini splatling"]["special points"] = 190
 
     splatlings_dct["nautilus 47"]["sub"] = "point sensor"
     splatlings_dct["nautilus 47"]["special"] = "ink storm"
@@ -1205,7 +1285,7 @@ def build_stringers() -> dict:
     class specifics: charge speed, mobility
     :return: the stringer dictionary
     """
-    stringers = ["inkline tri-stringer", "reef-lux 450", "tri-stringer"]
+    stringers = ["inkline tri-stringer", "reef-lux 450", "reef-lux 450 deco", "tri-stringer"]
 
     stringers_dct = dict()
     for stringer in stringers:
@@ -1234,6 +1314,16 @@ def build_stringers() -> dict:
     stringers_dct["reef-lux 450"]["mobility"] = 60
     stringers_dct["reef-lux 450"]["special points"] = 210
 
+    stringers_dct["reef-lux 450 deco"]["sub"] = "splash wall"
+    stringers_dct["reef-lux 450 deco"]["special"] = "reefslider"
+    stringers_dct["reef-lux 450 deco"]["points"] = 0
+    stringers_dct["reef-lux 450 deco"]["range"] = 60
+    stringers_dct["reef-lux 450 deco"]["role"] = "slayer, support"
+    stringers_dct["reef-lux 450 deco"]["weight"] = "light"
+    stringers_dct["reef-lux 450 deco"]["charge speed"] = 75
+    stringers_dct["reef-lux 450 deco"]["mobility"] = 60
+    stringers_dct["reef-lux 450 deco"]["special points"] = 200
+
     stringers_dct["tri-stringer"]["sub"] = "toxic mist"
     stringers_dct["tri-stringer"]["special"] = "killer wail 5.1"
     stringers_dct["tri-stringer"]["points"] = 0
@@ -1242,6 +1332,6 @@ def build_stringers() -> dict:
     stringers_dct["tri-stringer"]["weight"] = "middle"
     stringers_dct["tri-stringer"]["charge speed"] = 40
     stringers_dct["tri-stringer"]["mobility"] = 40
-    stringers_dct["tri-stringer"]["special points"] = 180
+    stringers_dct["tri-stringer"]["special points"] = 190
 
     return stringers_dct

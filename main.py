@@ -9,8 +9,8 @@
 #       you can check this number by clicking ZR twice with the
 #       specified weapon selected in-game and looking at the
 #       number in the bar graph (your 'freshness' for that weapon).
-#       each weapon will be prompted individually. as of october 2023,
-#       there are 101 weapons.
+#       each weapon will be prompted individually. as of december 2023,
+#       there are 110 weapons.
 # using this, produces a spreadsheet with several sheets:
 #       1. the `numbers` sheet, including progress toward the next
 #          freshness, as well as several default values, such as
@@ -104,21 +104,6 @@ def collect_points(dct: dict, default_zeros=False) -> None:
         False: prompt user for their points
     :return: None
     """
-    # TK
-    my_points = [12660, 17960, 10235, 11485, 31220, 62925, 10600, 10200, 11630,
-                 10200, 10000, 10400, 11235, 11045, 11200, 12200, 25370, 10135,
-                 162130, 10800, 10200, 10000, 11200, 10600, 17800, 10800, 10435,
-                 14200, 11000, 10000, 10200, 10200, 10500, 11810, 10400, 18815,
-                 61920, 10120, 10785, 15940, 13195, 11000, 11000, 17400, 67655,
-                 35400, 10000, 10200, 10285, 61665, 10000, 25365, 17900, 60695,
-                 18460, 10700, 333330, 73710, 10000, 10400, 10255, 10300, 10400,
-                 10000, 64320, 65405, 246220, 10200, 107930, 163410, 1160000,
-                 12010, 10060, 10200, 11000, 161055, 1160000, 161885, 10000,
-                 13185, 11575, 10200, 1160000, 10200, 65105, 10200, 160825,
-                 152945, 10400, 10130, 10600, 10200, 10710, 11000, 10605,
-                 10700, 259260, 10400, 10200, 16810, 14900]
-    point_itr = 0
-
     for weapon_class in dct:
         if not default_zeros:
             print("\n")
@@ -146,10 +131,7 @@ def collect_points(dct: dict, default_zeros=False) -> None:
                 points = 0
             if points > 1160000:
                 points = 1160000
-            # dct[weapon_class][weapon]["points"] = points
-            # dct[weapon_class][weapon]["points"] = my_points[point_itr]  # TK
-            dct[weapon_class][weapon]["points"] = 0  # TK
-            point_itr += 1
+            dct[weapon_class][weapon]["points"] = points
 
         if not default_zeros:
             print("~~~~~~~~~~")
@@ -241,13 +223,13 @@ def set_up_sheet(sheet, weapons) -> None:
     # set up range chart number in column directly after range-as-number
     range_rule = DataBarRule(start_type='num', start_value=0, end_type='num', end_value=100,
                              color="000000", showValue=False)
-    for row in range(2, 103):
+    for row in range(2, 112):
         sheet.cell(row, 12).value = "=K{}".format(row)
-    sheet.conditional_formatting.add('L2:L102', range_rule)
+    sheet.conditional_formatting.add('L2:L111', range_rule)
 
     # range chart in its own column (L), class specs in same column as value (O, P, .., U, V)
-    charts_to_add = ['O2:O102', 'P2:P102', 'Q2:Q102', 'R2:R102',
-                     'S2:S102', 'T2:T102', 'U2:U102', 'V2:V102']
+    charts_to_add = ['O2:O111', 'P2:P111', 'Q2:Q111', 'R2:R111',
+                     'S2:S111', 'T2:T111', 'U2:U111', 'V2:V111']
     specs_rule = DataBarRule(start_type='num', start_value=0, end_type='num', end_value=100,
                              color="000000", showValue=True)
     for column in charts_to_add:
@@ -284,7 +266,7 @@ def set_up_points_columns(sheet) -> None:
     :return: None
     """
 
-    for row in range(2, 103):
+    for row in range(2, 112):
         # E: freshness in stars
         sheet.cell(row, 5).value = "=IF(F{} < 10000, \"☆\", " \
                                    "IF(F{} < 25000, \"★\", " \
@@ -319,7 +301,7 @@ def set_up_points_columns(sheet) -> None:
     # ...J again: progress bar, hide the numbers, replace them with a data bar
     rule = DataBarRule(start_type='num', start_value=0, end_type='num', end_value=100,
                        color="000000", showValue=False)
-    sheet.conditional_formatting.add('J2:J102', rule)
+    sheet.conditional_formatting.add('J2:J111', rule)
 
 
 def create_new_sheet() -> None:
