@@ -39,7 +39,7 @@
 #       and which subs are more common to certain classes
 # matchmaking numbers across classes
 
-
+import openpyxl
 from openpyxl import Workbook, load_workbook
 from openpyxl.styles import Font, Alignment
 from openpyxl.formatting.rule import DataBarRule
@@ -113,12 +113,12 @@ def collect_points(dct: dict, default_zeros=False) -> None:
             if weapon == "spec A" or weapon == "spec B":
                 continue
             if not default_zeros:
-                print("Current points for '{}', or 'q' to quit and default to zeros:".format(weapon))
+                print("Current points for '{}', or 'q' to quit and default to zeros for this class:".format(weapon))
                 points = input()
                 if points.upper() == "Q":
                     default_zeros = True
                     points = 0
-                    print("Stopping points collection, filling in remaining weapons with zero points.\n")
+                    print("Stopping points collection, filling in remaining weapons in this class with zero points.\n")
                 else:
                     try:
                         points = int(points)
@@ -135,6 +135,8 @@ def collect_points(dct: dict, default_zeros=False) -> None:
 
         if not default_zeros:
             print("~~~~~~~~~~")
+        else:
+            default_zeros = False
 
 
 def set_header_row(sheet) -> None:
